@@ -1,4 +1,5 @@
 import { User } from '../../entities/User';
+import AppError from '../../errors/AppError'
 import { IMailProvider } from '../../providers/IMailProvider';
 import {IUsersRepository} from '../../repositories/IUsersRepository';
 import { ICreateUserRequestDTO } from './CreateUserDTO';
@@ -8,6 +9,7 @@ export class CreateUserUseCase{
     private usersRepository:IUsersRepository;
     private mailProvider:IMailProvider;
 
+    //Injeção de dependências
     constructor(usersRepository:IUsersRepository,mailProvider:IMailProvider){
         
         this.usersRepository = usersRepository;
@@ -20,7 +22,7 @@ export class CreateUserUseCase{
         const usersAlreadyExists = await this.usersRepository.findByEmail(data.email);
 
         if(usersAlreadyExists){
-            throw new Error('User already exists.');
+            throw new AppError('User already exists')
         }
 
         const user = new User(data);
@@ -39,6 +41,8 @@ export class CreateUserUseCase{
             subject:"Seja bem vindo a plataforma",
             body:"<p>Você já pode fazer login na nossa plataforma</p>"
         })
+
+        return user;
 
     }
 
