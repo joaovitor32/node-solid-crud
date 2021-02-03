@@ -19,16 +19,14 @@
 
 <div>
   <h3>Docker - Node:</h3>
-  '''
+  
     docker build -t <your-username>/dockernode . 
     docker run -p 3000:3000 -d <your-username>/dockernode
-
     To list images: docker ps
-  '''
+
   <h3>Docker - compose:</h3>
   <p>To run node and postgres is necessary just the following command
   </p>
-  '''
+  
     docker-compose up
-  '''
-</div>
+ </div>
