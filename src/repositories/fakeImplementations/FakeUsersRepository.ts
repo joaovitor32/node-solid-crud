@@ -14,4 +14,11 @@ export class FakeUsersRepository implements IUsersRepository {
   async save(user: User): Promise<void> {
     this.users.push(user);
   }
+
+  async read(id:string): Promise<User|undefined> {
+    const user = this.users.find(user => user.id === id);
+
+    return user;
+  }
+
 }
