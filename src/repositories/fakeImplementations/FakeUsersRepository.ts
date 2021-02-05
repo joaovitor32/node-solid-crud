@@ -21,4 +21,8 @@ export class FakeUsersRepository implements IUsersRepository {
     return user;
   }
 
+  async delete(id:string): Promise<void> {
+    this.users=this.users.filter(user => user.id !== id);
+  }
+
 }

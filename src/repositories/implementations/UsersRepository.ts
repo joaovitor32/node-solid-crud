@@ -3,6 +3,7 @@ import {ICreateUserRequestDTO} from '../../useCases/CreateUser/CreateUserDTO';
 import {IUsersRepository} from '../IUsersRepository';
 import {User} from '../../entities/User';
 import { IReadUserRequestDTO } from '../../useCases/ReadUser/ReadUserDTO';
+import { IDeleteUserDTO } from '../../useCases/DeleteUser/DeleteUserDTO';
 
 export class UsersRepository implements IUsersRepository{
 
@@ -63,6 +64,20 @@ export class UsersRepository implements IUsersRepository{
         await db.end()
 
         return response.rows[0];
+
+    }
+
+    async delete(id:string):Promise<void>{
+
+        const db = new pg.Client(this.config);
+
+        await db.connect();
+
+        const query = "DELETE FROM usuariocrud WHERE id=$1";
+
+        await db.query(query,[id]);
+
+        await db.end();
 
     }
 

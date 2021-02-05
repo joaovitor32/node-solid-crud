@@ -3,4 +3,5 @@ export interface IUsersRepository {
   findByEmail(email: string): Promise<User|undefined>;
   save(user: User): Promise<void>;
   read(id:string):Promise<User|undefined>
+  delete(id:string):Promise<void>
 }
