@@ -39,3 +39,5 @@
 ### User routes
 
 - **`POST / users`**: The route must receive the fields `name`, `email` and`userPassword` in the body of the request in order to register a new user.
+
+- **`GET / :id`**: The route must receive id in the body of the request in order to find a  user.
