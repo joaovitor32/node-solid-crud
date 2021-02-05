@@ -11,14 +11,14 @@ export class CreateUserController{
    
     async handle(request:Request,response:Response):Promise<Response>{
 
-        const {name,email,password} = request.body;
+        const {name,email,userPassword} = request.body;
 
         try{
 
             await this.createUserUseCase.execute({
                 name,
                 email,
-                password
+                userPassword
             })
 
             return response.status(201).send();

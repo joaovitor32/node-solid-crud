@@ -24,6 +24,11 @@
     docker run -p 3000:3000 -d <your-username>/dockernode
     To list images: docker ps
 
+  <h3>Docker - Postres:</h3>
+  
+    docker run --name postgres -e POSTGRES_PASSWORD=secret -d -p 5432:5432 postgres
+
+
   <h3>Docker - compose:</h3>
   <p>To run node and postgres is necessary just the following command
   </p>

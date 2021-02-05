@@ -8,4 +8,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node","src/database/create.ts","npm","start"]
+CMD ["npm","start"]
