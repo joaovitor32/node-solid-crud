@@ -27,8 +27,6 @@ describe('Deleting user',()=>{
 
     it('Should be  able to delete user',async ()=>{
 
-        const deleteFn = jest.fn();
-
         let user = new User({
             email:'joaovitor@gmail.com',
             name:"joao vitor",
@@ -37,9 +35,7 @@ describe('Deleting user',()=>{
 
         fakeUsersRepository.save(user);
 
-        deleteUserUseCase.execute({id:user.id});
-
-        expect(deleteFn).toHaveBeenCalled();
+        expect(deleteUserUseCase.execute({id:user.id})).resolves.not.toThrow();;
 
     })
 
