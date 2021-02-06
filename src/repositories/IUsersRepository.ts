@@ -4,4 +4,5 @@ export interface IUsersRepository {
   save(user: User): Promise<void>;
   read(id:string):Promise<User|undefined>
   delete(id:string):Promise<void>
+  update(user:User):Promise<User>
 }

@@ -4,6 +4,7 @@ import {IUsersRepository} from '../IUsersRepository';
 import {User} from '../../entities/User';
 import { IReadUserRequestDTO } from '../../useCases/ReadUser/ReadUserDTO';
 import { IDeleteUserDTO } from '../../useCases/DeleteUser/DeleteUserDTO';
+import { IUpdateUserDTO } from '../../useCases/UpdateUser/UpdateUserDTO';
 
 export class UsersRepository implements IUsersRepository{
 
@@ -46,7 +47,8 @@ export class UsersRepository implements IUsersRepository{
             user.email,
             user.userPassword
         ])
-       
+        
+        console.log(user.id)
         await db.end();
     }
 
@@ -78,6 +80,22 @@ export class UsersRepository implements IUsersRepository{
         await db.query(query,[id]);
 
         await db.end();
+
+    }
+
+    async update({id,email,name,userPassword}:IUpdateUserDTO):Promise<User>{
+    
+        const db = new pg.Client(this.config);
+
+        await db.connect();
+
+        const query = "UPDATE usuariocrud SET nome=$1, email=$2, userPassword=$3 WHERE id=$4";
+
+        const response = await db.query(query,[name,email,userPassword,id]);
+    
+        await db.end();
+       
+        return response.rows[0];
 
     }
 

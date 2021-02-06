@@ -43,3 +43,5 @@
 - **`GET / :id`**: The route must receive id in the body of the request in order to find a  user.
 
 - **`DELETE / :id`**: The route must receive id in the body of the request in order to delete a  user.
+
+- **`UPDATE / :id`**: The route must receive the fields `name`, `email` and`userPassword` in the body of the request in order to update a new user.
