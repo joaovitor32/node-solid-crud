@@ -22,7 +22,8 @@ export class UpdateUserController{
                 userPassword
             })
 
-            return response.status(204).send(user);
+
+            return response.status(200).send(user);
 
         }catch(err){
 

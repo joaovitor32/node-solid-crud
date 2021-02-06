@@ -24,7 +24,6 @@ export class UpdateUserUseCase{
 
         const response = await this.usersRepository.update(data);
 
-
         const user = new User(response,data.id);
 
     
