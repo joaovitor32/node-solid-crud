@@ -15,17 +15,14 @@ export class UpdateUserUseCase{
     }
     
     async execute(data:IUpdateUserDTO ){
-        
-        const usersAlreadyExists = await this.usersRepository.read(data.id);
-
-        if(!usersAlreadyExists){
-            throw new AppError('Cannot update user that does not exists')
-        }
-
+    
         const response = await this.usersRepository.update(data);
 
-        const user = new User(response,data.id);
+        if(!response){
+            throw new AppError('Was not possible to update user')
+        }
 
+        const user = new User(response,data.id);
     
         return user;
 

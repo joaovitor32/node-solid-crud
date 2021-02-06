@@ -1,31 +1,45 @@
+import { User } from '../../entities/User';
 import AppError from '../../errors/AppError';
 
 import { FakeUsersRepository } from '../../repositories/fakeImplementations/FakeUsersRepository';
-import { FakeMailProvider } from '../../providers/fakeimplementations/FakeMaileProvider'
 
 import { DeleteUserUseCase } from './DeleteUserUseCase';
-import { CreateUserUseCase} from '../CreateUser/CreateUserUseCase';
 
 let deleteUserUseCase:DeleteUserUseCase;
-let createUserUseCase:CreateUserUseCase;
 
 let fakeUsersRepository:FakeUsersRepository;
-let fakeMailProvider:FakeMailProvider;
 
 describe('Deleting user',()=>{
 
     beforeEach(()=>{
 
         fakeUsersRepository = new  FakeUsersRepository();
-        fakeMailProvider = new  FakeMailProvider();
 
-        createUserUseCase = new  CreateUserUseCase(fakeUsersRepository,fakeMailProvider);
         deleteUserUseCase = new  DeleteUserUseCase(fakeUsersRepository);
 
     })
 
-    it('Should be able to delete user',async ()=>{
+    it('Should be not able to delete user',async ()=>{
 
+        expect(deleteUserUseCase.execute({id:'not-a-valid-id'})).rejects.toBeInstanceOf(AppError)
+
+    })
+
+    it('Should be  able to delete user',async ()=>{
+
+        const deleteFn = jest.fn();
+
+        let user = new User({
+            email:'joaovitor@gmail.com',
+            name:"joao vitor",
+            userPassword:"teste"
+        })
+
+        fakeUsersRepository.save(user);
+
+        deleteUserUseCase.execute({id:user.id});
+
+        expect(deleteFn).toHaveBeenCalled();
 
     })
 

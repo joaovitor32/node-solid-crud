@@ -15,13 +15,13 @@ export class CreateUserController{
 
         try{
 
-            await this.createUserUseCase.execute({
+            let user = await this.createUserUseCase.execute({
                 name,
                 email,
                 userPassword
             })
 
-            return response.status(201).send();
+            return response.status(201).send(user);
 
         }catch(err){
 

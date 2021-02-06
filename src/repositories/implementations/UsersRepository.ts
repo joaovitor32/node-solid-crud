@@ -32,16 +32,17 @@ export class UsersRepository implements IUsersRepository{
 
     }
 
-    async save({email,name,userPassword}:ICreateUserRequestDTO):Promise<void>{
+    async save({email,name,userPassword}:ICreateUserRequestDTO):Promise<User>{
     
+        let response;
         let db = new pg.Client(this.config)
         let user = new  User({email,name,userPassword});
         
         await db.connect();
     
-        const queryInsert = "INSERT INTO usuariocrud (id,nome,email,userPassword) VALUES ($1,$2,$3,$4);";
+        const queryInsert = "INSERT INTO usuariocrud (id,nome,email,userPassword) VALUES ($1,$2,$3,$4) RETURNING * ;";
 
-        await db.query(queryInsert,[
+        response = await db.query(queryInsert,[
             user.id,
             user.name,
             user.email,
@@ -49,6 +50,8 @@ export class UsersRepository implements IUsersRepository{
         ])
        
         await db.end();
+
+        return response.rows[0]
     }
 
     async read(id:string):Promise<User|undefined>{
