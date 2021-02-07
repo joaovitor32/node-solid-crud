@@ -32,8 +32,7 @@
   <h3>Docker - compose:</h3>
   <p>To run node and postgres is necessary just the following command
   </p>
-  
-    docker-compose up
+    docker-compose --env-file ./.env up  
  </div>
 
 ### User routes

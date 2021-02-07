@@ -2,23 +2,22 @@ import pg from 'pg'
 import {ICreateUserRequestDTO} from '../../useCases/CreateUser/CreateUserDTO';
 import {IUsersRepository} from '../IUsersRepository';
 import {User} from '../../entities/User';
-import { IReadUserRequestDTO } from '../../useCases/ReadUser/ReadUserDTO';
-import { IDeleteUserDTO } from '../../useCases/DeleteUser/DeleteUserDTO';
 import { IUpdateUserDTO } from '../../useCases/UpdateUser/UpdateUserDTO';
 
 export class UsersRepository implements IUsersRepository{
 
     config={
-        user:"postgres",
-        host: "node-solid-crud_db_1",
-        database:"simplecrud",
-        password:"postgres",
-        port:5432
+        user:process.env.user||"postgres",
+        host: process.env.host||"node-solid-crud_db_1",
+        database:process.env.database||"simplecrud",
+        password:process.env.password||"postgres",
+        port:process.env.portDB?parseInt(process.env.portDB):5432
     }
 
     async findByEmail(email:string):Promise<User|undefined>{
     
         let response;
+        
         let db = new pg.Client(this.config)
         await db.connect();
 

@@ -1,6 +1,10 @@
+const dotenv = require('dotenv')
+
 import { app } from "./app";
 
-const PORT = 3000;
-const HOST = "0.0.0.0"
+dotenv.config({ path: __dirname+'/.env' });
 
-app.listen(PORT,HOST)
+app.listen(
+    process.env.portNode?parseInt(process.env.portNode):3000,
+    process.env.HOST?process.env.HOST:'0.0.0.0'
+)
