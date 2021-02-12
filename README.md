@@ -44,3 +44,14 @@
 - **`DELETE / :id`**: The route must receive id in the body of the request in order to delete a  user.
 
 - **`UPDATE / :id`**: The route must receive the fields `name`, `email` and`userPassword` in the body of the request in order to update a new user.
+
+<h5>Example of .env file:</h5>
+
+```user = postgres
+host = node-solid-crud_db_1
+database = simplecrud
+password = postgres
+portDB = 5432
+portNode = 3000
+host=0.0.0.0
+```
