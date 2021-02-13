@@ -58,3 +58,11 @@ portDB = 5432
 portNode = 3000
 host=0.0.0.0
 ```
+<h5>If there is any problem:</h5>
+
+```user = postgres
+
+docker-compose stop
+sudo rm -rf ./data/postgres/
+
+```
