@@ -4,6 +4,8 @@ import {IUsersRepository} from '../IUsersRepository';
 import {User} from '../../entities/User';
 import { IUpdateUserDTO } from '../../useCases/UpdateUser/UpdateUserDTO';
 
+require('dotenv').config()
+
 export class UsersRepository implements IUsersRepository{
 
     config={
