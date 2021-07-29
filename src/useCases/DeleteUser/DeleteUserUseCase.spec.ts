@@ -1,42 +1,34 @@
-import { User } from '../../entities/User';
-import AppError from '../../errors/AppError';
+import { User } from "../../entities/User";
+import AppError from "../../errors/AppError";
+import { FakeUsersRepository } from "../../repositories/fakeImplementations/FakeUsersRepository";
+import { DeleteUserUseCase } from "./DeleteUserUseCase";
 
-import { FakeUsersRepository } from '../../repositories/fakeImplementations/FakeUsersRepository';
+let deleteUserUseCase: DeleteUserUseCase;
 
-import { DeleteUserUseCase } from './DeleteUserUseCase';
+let fakeUsersRepository: FakeUsersRepository;
 
-let deleteUserUseCase:DeleteUserUseCase;
+describe("Deleting user", () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
 
-let fakeUsersRepository:FakeUsersRepository;
+    deleteUserUseCase = new DeleteUserUseCase(fakeUsersRepository);
+  });
 
-describe('Deleting user',()=>{
+  it("Should be not able to delete user", async () => {
+    expect(
+      deleteUserUseCase.execute({ id: "not-a-valid-id" })
+    ).rejects.toBeInstanceOf(AppError);
+  });
 
-    beforeEach(()=>{
+  it("Should be  able to delete user", async () => {
+    const user = new User({
+      email: "joaovitor@gmail.com",
+      name: "joao vitor",
+      userPassword: "teste",
+    });
 
-        fakeUsersRepository = new  FakeUsersRepository();
+    fakeUsersRepository.save(user);
 
-        deleteUserUseCase = new  DeleteUserUseCase(fakeUsersRepository);
-
-    })
-
-    it('Should be not able to delete user',async ()=>{
-
-        expect(deleteUserUseCase.execute({id:'not-a-valid-id'})).rejects.toBeInstanceOf(AppError)
-
-    })
-
-    it('Should be  able to delete user',async ()=>{
-
-        let user = new User({
-            email:'joaovitor@gmail.com',
-            name:"joao vitor",
-            userPassword:"teste"
-        })
-
-        fakeUsersRepository.save(user);
-
-        expect(deleteUserUseCase.execute({id:user.id})).resolves.not.toThrow();;
-
-    })
-
-})
+    expect(deleteUserUseCase.execute({ id: user.id })).resolves.not.toThrow();
+  });
+});

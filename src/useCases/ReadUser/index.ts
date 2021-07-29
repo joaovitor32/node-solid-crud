@@ -1,15 +1,12 @@
-import {UsersRepository} from '../../repositories/implementations/UsersRepository';
-import { ReadUserController } from './ReadUserController';
-import { ReadUserUseCase } from './ReadUserUseCase';
+import UsersRepository from "../../repositories/implementations/UsersRepository";
+import ReadUserController from "./ReadUserController";
+import ReadUserUseCase from "./ReadUserUseCase";
 
+const postgresUsersRepository = new UsersRepository();
 
-const postgresUsersRepository = new UsersRepository()
+// Injeção de dependências
+const readUserUseCase = new ReadUserUseCase(postgresUsersRepository);
 
-//Injeção de dependências
-const readUserUseCase = new ReadUserUseCase(
-    postgresUsersRepository,
-)
+const readUserController = new ReadUserController(readUserUseCase);
 
-const readUserController = new ReadUserController(readUserUseCase)
-
-export {readUserUseCase,readUserController}
+export { readUserUseCase, readUserController };

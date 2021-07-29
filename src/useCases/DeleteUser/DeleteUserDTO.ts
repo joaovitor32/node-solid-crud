@@ -1,3 +1,3 @@
-export interface IDeleteUserDTO{
-    id:string;
+export interface IDeleteUserDTO {
+  id: string;
 }

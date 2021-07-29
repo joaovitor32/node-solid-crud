@@ -1,30 +1,21 @@
-import {Request,Response} from 'express';
-import {DeleteUserUseCase} from './DeleteUserUseCase';
+import { Request, Response } from "express";
 
-export class DeleteUserController{
+import DeleteUserUseCase from "./DeleteUserUseCase";
 
-    constructor(
-        private deleteUserUseCase:DeleteUserUseCase
-    ){}
+export default class DeleteUserController {
+  constructor(private deleteUserUseCase: DeleteUserUseCase) {}
 
-    async handle(request:Request,response:Response):Promise<Response>{
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
 
-        const {id} = request.params;
+    try {
+      await this.deleteUserUseCase.execute({ id });
 
-        try{
-
-            await this.deleteUserUseCase.execute({id});
-
-            return response.status(200).send();
-
-        }catch(err){
-
-            return response.status(400).json({
-                message:err.message||'Unexpected error'
-            })
-
-        }
-
+      return response.status(200).send();
+    } catch (err) {
+      return response.status(400).json({
+        message: err.message || "Unexpected error",
+      });
     }
-
+  }
 }

@@ -1,12 +1,11 @@
-
+import User from "../../entities/User";
 import { IUsersRepository } from "../IUsersRepository";
-import { User } from "../../entities/User";
 
-export class FakeUsersRepository implements IUsersRepository {
+export default class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
-  async findByEmail(email: string): Promise<User|undefined> {
-    const user = await this.users.find(user => user.email === email);
+  async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.users.find((userElem) => userElem.email === email);
 
     return user;
   }
@@ -16,30 +15,27 @@ export class FakeUsersRepository implements IUsersRepository {
     return user;
   }
 
-  async read(id:string): Promise<User|undefined> {
-    const user = await this.users.find(user => user.id === id);
+  async read(id: string): Promise<User | undefined> {
+    const user = await this.users.find((userElem) => userElem.id === id);
 
     return user;
   }
 
-  async delete(id:string): Promise<void> {
-    this.users =await this.users.filter(user => user.id !== id);
+  async delete(id: string): Promise<void> {
+    this.users = await this.users.filter((userElem) => userElem.id !== id);
   }
-  
-  async update(user:User):Promise<User>{
 
-    let findUserIndex = await this.users.findIndex(elem=>elem.id===user.id);
-  
-    this.users.forEach((element,index)=>{
-        if(element.id === user.id) {
-          this.users[index] = new User(user,user.id) ;
-        }
-    })
+  async update(user: User): Promise<User> {
+    const findUserIndex = await this.users.findIndex(
+      (elem) => elem.id === user.id
+    );
+
+    this.users.forEach((element, index) => {
+      if (element.id === user.id) {
+        this.users[index] = new User(user, user.id);
+      }
+    });
 
     return this.users[findUserIndex];
-
-
   }
-  
-
 }

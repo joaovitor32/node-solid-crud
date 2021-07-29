@@ -1,3 +1,3 @@
-export interface IReadUserRequestDTO{
-    id:string    
+export interface IReadUserRequestDTO {
+  id: string;
 }
